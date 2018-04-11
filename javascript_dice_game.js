@@ -13,6 +13,27 @@ function rollDie(dieNumber) { //MASTER ROLL DICE function
 	return rolledNumber;
 }
 
+/*function levelTwoRoll(){
+	for (let i = 0; i<3; i++) {
+		let levelTwoRollOne = rollDie(dieTen);
+			if(levelTwoRollOne = 1 || 6) {
+				directorOne === false;
+			}
+			Else if { (levelTwoRollOne = 2 || 7)
+				directorTwo === false;
+			}
+			Else if { (levelTwoRollOne = 3 || 8) 
+				directorThree === false;
+			}
+			Else if { (levelTwoRollOne = 4 || 9) 
+				directorFour === false;
+			}
+			Else {
+				directorFive ===false;
+			}
+	}
+	}
+*/
 function toUSDollar(numberAmount) {//MASTER CONVERT TO US DOLLAR FUNCTION
 console.log((numberAmount).toLocaleString('en-US', {
   style: 'currency',
@@ -96,7 +117,7 @@ let movieGenres = [];
 let topActors = [];
 let midActors = [];
 let lowActors = [];
-let directors = [];
+let directorsArray = [];
 
 topActors.push(new TopActor("Angelina", "Jolie", 25000000, 0));
 topActors.push(new TopActor("Angelina", "Jolie", 25000000, 0));
@@ -153,7 +174,7 @@ createGenre("indie drama", 7000000, 18);
 createGenre("indie comedy", 9000000, 19);
 createGenre("musical drama", 75000000, 20);
 
-//console.log(movieGenres[18]);
+console.log(movieGenres[18]);
 /*for(let i=0; i<=movieGenres.length; i++){
 console.log(movieGenres[i]);
 }
@@ -186,9 +207,11 @@ function playGame() {
 	//this is the master game function
 	//STEP 1: CALL LEVEL ONE Function
 	
-	levelOne();
+	let userSelectedGenre = levelOne();
+	levelTwo();
 
 }
+
 function levelOne() {
 		//STEP 1: ROLL THE DICE TO SELECT THE 4 GENRES YOU CAN CHOOSE FROM
 	//Can I make LEVEL 1 into its own function?
@@ -206,8 +229,42 @@ function levelOne() {
 	console.log("3. " + genreThree.type + ", cost $" + genreThree.budget);
 	let genreFour = movieGenres[genreRollFour];
 	console.log("4. " + genreFour.type + ", cost $" + genreFour.budget); 
-	let userSelectedGenre = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
-	console.log(userSelectedGenre);
+	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
+	//console.log(userInputTwo);
+	return userInputTwo;
+}
+
+function levelTwo() {
+	alert("In the following prompts please enter your top 5 choices for directors you would like to work with on your film.  Press Enter to continue...");
+	let directorOne = prompt("Enter the name of a director and hit return: ");
+	let directorTwo = prompt("Enter the name of a director and hit return: ");
+	let directorThree = prompt("Enter the name of a director and hit return: ");
+	let directorFour = prompt("Enter the name of a director and hit return: ");
+	let directorFive = prompt("Enter the name of a director and hit return: ");
+	directorsArray.push(directorOne, directorTwo, directorThree, directorFour, directorFive);
+	console.log(directorsArray.length);
+	console.log("You bang your desk and summon your assistant through the door.  You tell him to get " + directorOne + ", " + directorTwo + ", " + directorThree + ", " + directorFour +  " and " + directorFive + " on the phone, ASAP!");
+	
+	for (let i = 0; i<2; i++) {
+		let levelTwoRollOne = rollDie(10);
+			if(levelTwoRollOne == 1 || levelTwoRollOne == 6) {
+				directorOne === false;
+				console.log(levelTwoRollOne);
+			} else if (levelTwoRollOne == 2 || levelTwoRollOne == 7) {
+				directorTwo === false;
+				console.log(levelTwoRollOne);
+			} else if (levelTwoRollOne === 3 || 8) {
+				directorThree === false;
+				console.log(levelTwoRollOne);
+			} else if(levelTwoRollOne === 4 || 9) {
+				directorFour === false;
+				console.log(levelTwoRollOne);
+			}
+			else {
+				directorFive ===false;
+				console.log(levelTwoRollOne);
+			}
+	}
 }
 
 
