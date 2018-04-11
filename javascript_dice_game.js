@@ -21,15 +21,25 @@ console.log((numberAmount).toLocaleString('en-US', {
 }
 
 function createGenre(genre, amount, i){
-let newGenre = new Genre(genre, amount);
-movieGenres.push(newGenre);
-console.log(movieGenres[i]);
+	let newGenre = new Genre(genre, amount);
+	movieGenres.push(newGenre);
+	//console.log(movieGenres[i]);
 }
 
 function createTopActor(first, last, salary, i){
-	let newActor = new topActor(first, last, salary);
+	let newActor = new TopActor(first, last, salary);
 	topActors.push(newActor);
-	console.log(topActors[i]);
+	//console.log(topActors[i]);
+}
+
+function createMidActor(first, last, salary, i){
+	let newActor = new MidActor(first, last, salary);
+	midActors.push(newActor);
+}
+
+function createLowActor(first, last, salary, i){
+	let newActor = new LowActor(first, last, salary);
+	lowActors.push(newActor);
 }
 /*function createObject(objectClassName, fullName, salary, i){
 	let newArray = [];
@@ -47,11 +57,24 @@ function Genre(genre, budget){ // MASTER GENRE OBJECT CONSTRUCTOR FUNCTION
 	this.budget = budget;
 }
 
-function topActor(first, last, salary){
+function TopActor(first, last, salary){
 	this.firstName = first;
 	this.lastName = last;
 	this.salary = salary;
 }
+	
+function MidActor(first, last, salary) {
+	this.firstName = first;
+	this.lastName = last;
+	this.salary = salary;
+}
+
+function LowActor(first, last, salary) {
+	this.firstName = first;
+	this.lastName = last;
+	this.salary = salary;
+}
+	
 	//BELOW IS ANDREW'S MODEL FOR BUILDING AN OBJECT CONSTRUCTOR
 	/*
 	function student(name, age){ //this is an object constructor
@@ -73,15 +96,40 @@ let movieGenres = [];
 let topActors = [];
 let midActors = [];
 let lowActors = [];
+let directors = [];
 
-createTopActor("Angelina", "Jolie", 25000000, 0);
-createTopActor("Denzel", "Washington", 22000000, 1);
-createTopActor("The Rock", "", 19000000, 2);
-createTopActor("Meryll", "Streep", 20000000, 3);
+topActors.push(new TopActor("Angelina", "Jolie", 25000000, 0));
+topActors.push(new TopActor("Angelina", "Jolie", 25000000, 0));
+topActors.push(new TopActor("Denzel", "Washington", 22000000, 1));
+topActors.push(new TopActor("The Rock", "", 19000000, 2));
+topActors.push(new TopActor("Meryll", "Streep", 20000000, 3));
 /*for(let i=0; i<=topActors.length; i++){
 console.log(topActors[i]);
 }
 */
+
+//createMidActor("Angela", "Basset", 13000000);
+midActors.push(new MidActor("Angela", "Basset", 13000000));
+//createMidActor("Taylor", "Kitsch", 9000000);
+midActors.push(new MidActor("Taylor", "Kitsch", 9000000));
+//createMidActor("Keanu", "Reeves", 11000000);
+midActors.push(new MidActor("Keanu", "Reeves", 11000000));
+//createMidActor("Kidman", "Nicole", 10000000);
+midActors.push(new MidActor("Kidman", "Nicole", 10000000));
+//for(let i=0; i<=midActors.length; i++){
+//console.log(midActors[i]);}
+
+//LowActor("Terri", "Hatcher", 1000000);
+//LowActor("Tom", "Selleck", 4000000);
+//LowActor("Jennifer", "Garner", 6000000);
+//LowActor("James", "McAvoy", 3000000);
+lowActors.push(new LowActor("Terri", "Hatcher", 1000000));
+lowActors.push(new LowActor("Tom", "Selleck", 4000000));
+lowActors.push(new LowActor("Jennifer", "Garner", 6000000));
+lowActors.push(new LowActor("James", "McAvoy", 3000000));
+//for(let i=0; i<=lowActors.length; i++){
+//console.log(lowActors[i]);}
+
 
 createGenre("action", 200000000, 0);
 createGenre("romance", 35000000, 1);
@@ -105,6 +153,7 @@ createGenre("indie drama", 7000000, 18);
 createGenre("indie comedy", 9000000, 19);
 createGenre("musical drama", 75000000, 20);
 
+//console.log(movieGenres[18]);
 /*for(let i=0; i<=movieGenres.length; i++){
 console.log(movieGenres[i]);
 }
@@ -136,6 +185,7 @@ else {
 function playGame() {
 	//this is the master game function
 	//STEP 1: CALL LEVEL ONE Function
+	
 	levelOne();
 
 }
@@ -147,12 +197,17 @@ function levelOne() {
 	let genreRollThree = rollDie(diceTwenty);
 	let genreRollFour = rollDie(diceTwenty);
 	//STEP 2: ASSOCIATE THE ROLLED NUMBER W/ A GENRE FROM THE GENRE Array
-	console.log("1. " + movieGenre[genreRollOne]);
-	console.log("2. " + movieGenre[genreRollTwo]);
-	console.log("3. " + movieGenre[genreRollThree]);
-	console.log("4. " + movieGenre[genreRollFour]);
-	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
-	console.log(userInputTwo);
+	//console.log(movieGenres[genreRollOne].);
+	let genreOne = movieGenres[genreRollOne];
+	console.log("1. " + genreOne.type + ", cost $" + genreOne.budget);
+	let genreTwo = movieGenres[genreRollTwo]
+	console.log("2. " + genreTwo.type + ", cost $" + genreTwo.budget);
+	let genreThree = movieGenres[genreRollThree];
+	console.log("3. " + genreThree.type + ", cost $" + genreThree.budget);
+	let genreFour = movieGenres[genreRollFour];
+	console.log("4. " + genreFour.type + ", cost $" + genreFour.budget); 
+	let userSelectedGenre = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
+	console.log(userSelectedGenre);
 }
 
 
