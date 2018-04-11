@@ -1,44 +1,39 @@
 "use strict";
-//AVAILABLE DICE
-let diceFour = 4;
-let diceSix = 6;
-let diceEight = 8;
-let diceTen = 10;
-let diceTwelve = 12;
-let diceTwenty = 20;
 
-//LIST FUNCTIONS HERE
+
+
+/*function createObject(objectClassName, fullName, salary, i){
+	let newArray = [];
+	let newObject = new objectClassName(x, y);
+	newArray.push(newObject);
+	console.log(newArray[i]);
+}
+
+createObject(new topActors, new Angelina_Jolie, 25000000, 0);
+*/
+
+//place object consructors here
+
+	
+	//BELOW IS ANDREW'S MODEL FOR BUILDING AN OBJECT CONSTRUCTOR
+	/*
+	function student(name, age){ //this is an object constructor
+	this.age = age;
+	this.name = name;
+	}
+
+	let students = [];
+	students.push( new student("adff", 34));
+
+	students[0].age
+
+	loop
+	if (students[
+	
+*/
 function rollDie(dieNumber) { //MASTER ROLL DICE function
 	let rolledNumber = (Math.floor(Math.random() * dieNumber) + 1); 
 	return rolledNumber;
-}
-
-/*function levelTwoRoll(){
-	for (let i = 0; i<3; i++) {
-		let levelTwoRollOne = rollDie(dieTen);
-			if(levelTwoRollOne = 1 || 6) {
-				directorOne === false;
-			}
-			Else if { (levelTwoRollOne = 2 || 7)
-				directorTwo === false;
-			}
-			Else if { (levelTwoRollOne = 3 || 8) 
-				directorThree === false;
-			}
-			Else if { (levelTwoRollOne = 4 || 9) 
-				directorFour === false;
-			}
-			Else {
-				directorFive ===false;
-			}
-	}
-	}
-*/
-function toUSDollar(numberAmount) {//MASTER CONVERT TO US DOLLAR FUNCTION
-console.log((numberAmount).toLocaleString('en-US', {
-  style: 'currency',
-  currency: 'USD',
-})); /* $2,500.00 */
 }
 
 function createGenre(genre, amount, i){ //Genre consructor w/ array push
@@ -62,61 +57,21 @@ function createLowActor(first, last, salary, i){ //LowActor consructor w/ array 
 	let newActor = new LowActor(first, last, salary);
 	lowActors.push(newActor);
 }
-/*function createObject(objectClassName, fullName, salary, i){
-	let newArray = [];
-	let newObject = new objectClassName(x, y);
-	newArray.push(newObject);
-	console.log(newArray[i]);
+
+function toUSDollar(numberAmount) {//MASTER CONVERT TO US DOLLAR FUNCTION
+console.log((numberAmount).toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD',
+})); /* $2,500.00 */
 }
-
-createObject(new topActors, new Angelina_Jolie, 25000000, 0);
-*/
-
-//place object consructors here
-function Genre(genre, budget){ // MASTER GENRE OBJECT CONSTRUCTOR FUNCTION
-	this.type = genre;
-	this.budget = budget;
-}
-
-function TopActor(first, last, salary){ //TopActor Object constructor
-	this.firstName = first;
-	this.lastName = last;
-	this.salary = salary;
-}
-	
-function MidActor(first, last, salary) { //MidActor Object constructor
-	this.firstName = first;
-	this.lastName = last;
-	this.salary = salary;
-}
-
-function LowActor(first, last, salary) { //LowActor Object consructor
-	this.firstName = first;
-	this.lastName = last;
-	this.salary = salary;
-}
-
-function findNewDirector(opponent,opponentRateFirst){ //invoke this function if the user rejects all the first director's rate offers.
-	console.log("Ugh, it didn't work out with " + opponent + ".  It's okay, that's why you made a list.  Head back to your office to find a new director!");
-}
-	
-	//BELOW IS ANDREW'S MODEL FOR BUILDING AN OBJECT CONSTRUCTOR
-	/*
-	function student(name, age){ //this is an object constructor
-	this.age = age;
-	this.name = name;
-	}
-
-	let students = [];
-	students.push( new student("adff", 34));
-
-	students[0].age
-
-	loop
-	if (students[
-*/
 
 //LIST DIFFERENT DATA SETS HERE:
+let diceFour = 4;
+let diceSix = 6;
+let diceEight = 8;
+let diceTen = 10;
+let diceTwelve = 12;
+let diceTwenty = 20;
 let movieGenres = [];
 let topActors = [];
 let midActors = [];
@@ -187,57 +142,34 @@ console.log(movieGenres[i]);
 }
 
 toUSDollar(movieGenres[7].budget);
-
-
-
-let movieGenre = ["action -- $200 million", "romance -- $35 million", "comedy -- $45 million", "suspense -- $30 million", "children's animated -- $100 million", "children's live-action -- $40 million", "musical drama -- $ 75 million", "musical comedy -- $50 million", "war -- $150 million", "young adult -- $20 million", "mystery -- $50 million", "chase -- $80 million", "heist -- $65 million", "period drama -- $70 million", "sci-fi space -- $300 million", "sci-fi time-travel -- $120 million", "sci-fi dystopian -- $125 million", "fantasy -- $112 million", "indie drama -- $7 million", "indie comedy -- $9 million"];
-console.log("movieGenre array length = " + movieGenre.length);
-
-let highActorsArray = ["Angelina Jolie", "Denzel Washington", "The Rock", "Meryll Streep"];
-
-let midActorsArray = ["Kevin Hart", "Bradley Cooper", "Emily Blunt", "Jenifer Lawrence"];
-
-let lowActorsArray = ["Terri Hatcher", "Stacey Dash", "Alicia Silverstone", "Roseanne Bar"];
-
 */
 
-let userInputStart = prompt("Welcome to Hitting the Big Time!  You are a big money producer with $500,000,000 in the bank.  Are you ready to make a movie? Y/N");
-
-if (userInputStart === "Y") {
-	playGame();
-}
-else {
-	alert("Goodbye!");
+//LIST FUNCTIONS HERE
+function Genre(genre, budget){ // MASTER GENRE OBJECT CONSTRUCTOR FUNCTION
+	this.type = genre;
+	this.budget = budget;
 }
 
-function playGame() {
-	//this is the master game function
-	//STEP 1: CALL LEVEL ONE Function
+function TopActor(first, last, salary){ //TopActor Object constructor
+	this.firstName = first;
+	this.lastName = last;
+	this.salary = salary;
+}
 	
-	let userSelectedGenre = levelOne();
-	let chosenDirector = levelTwo(); 
-	console.log(chosenDirector);
-	levelThree(chosenDirector);
-	console.log("Whoa, you've somehow passed out of the Level Three function, and so far your game works!");
+function MidActor(first, last, salary) { //MidActor Object constructor
+	this.firstName = first;
+	this.lastName = last;
+	this.salary = salary;
 }
 
-function levelThree(randomDirector) {
-	let directorInitialRate = topActors[rollDie(diceFour)].salary; 
-	parseInt(directorInitialRate);
-	alert("Awesome!  " + randomDirector + " has accepted your offer and would like to meet for drinks at Per Se off Hollywood Boulevard.  You tell your assistant to hold your calls and cancel your private pilates session with your personal trainer Javi.  Press Return to head over to the restaurant!");
-	alert(randomDirector + " loves the script you've sent their people.  But before they can get into business, " + randomDirector + " says, you have to talk to their agent.  " + randomDirector + " dials his cell phone and hands it to you.  You take the phone and grit your teeth.  It's contract time...(press Return to negotiate with " + randomDirector + "'s agent)");
-	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants $" + directorInitialRate + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
-	if (userInputLevelThreeOne == 1) {
-		negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
-		//if (true == negotiate(randomDirector, directorInitialRate)){
-		//kick out to level 4; }
-		//else { kick out to Plan B
-		console.log("if you're reading this it means the negotiate function worked");
-	}
-	else {
-		console.log("you chose not to negotiate with " + randomDirector + "'s rate of $" + directorInitialRate + " to make your movie.  Looks like you and " + randomDirector + " have a deal!  Head home to shower before you meet the writer whose script you chose this morning...");
-		//console.log("you did not agree to " + randomDirector + "'s initial rate of $" + directorInitialRate + " to make your movie.");
-	}
+function LowActor(first, last, salary) { //LowActor Object consructor
+	this.firstName = first;
+	this.lastName = last;
+	this.salary = salary;
+}
+
+function findNewDirector(opponent,opponentRateFirst){ //invoke this function if the user rejects all the first director's rate offers.
+	console.log("Ugh, it didn't work out with " + opponent + ".  It's okay, that's why you made a list.  Head back to your office to find a new director!");
 }
 
 function negotiate(opponent, opponentRateFirst) { //this is the negotiation function
@@ -258,8 +190,6 @@ function negotiate(opponent, opponentRateFirst) { //this is the negotiation func
 		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of $" + opponentCounterOffer + " to direct your movie.  Great!  Let's get to work!");
 	}
 }
-
-//MAKE COUNTER NEGOTIATION function here:
 
 function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the counter negotiation function
 	let opponentCounterOffer = ((rollDie(diceSix) / 10) + opponentRateFirst) + opponentRateFirst;
@@ -300,8 +230,8 @@ function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the 
 }
 	
 function levelOne() {
-		//STEP 1: ROLL THE DICE TO SELECT THE 4 GENRES YOU CAN CHOOSE FROM
-	//Can I make LEVEL 1 into its own function?
+	//STEP 1: ROLL THE DICE TO SELECT THE 4 GENRES YOU CAN CHOOSE FROM
+	
 	let genreRollOne = rollDie(diceTwenty);
 	let genreRollTwo = rollDie(diceTwenty);
 	let genreRollThree = rollDie(diceTwenty);
@@ -319,9 +249,6 @@ function levelOne() {
 	console.log("4. " + genreFour.type + ", cost $" + genreFour.budget); 
 	
 	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
-	
-
-	
 	//console.log(userInputTwo);
 	return userInputTwo;
 }
@@ -411,3 +338,61 @@ function levelTwo() {
 					}
 				}		
 			}
+			
+function levelThree(randomDirector) {
+	let directorInitialRate = topActors[rollDie(diceFour)].salary; 
+	parseInt(directorInitialRate);
+	alert("Awesome!  " + randomDirector + " has accepted your offer and would like to meet for drinks at Per Se off Hollywood Boulevard.  You tell your assistant to hold your calls and cancel your private pilates session with your personal trainer Javi.  Press Return to head over to the restaurant!");
+	alert(randomDirector + " loves the script you've sent their people.  But before they can get into business, " + randomDirector + " says, you have to talk to their agent.  " + randomDirector + " dials his cell phone and hands it to you.  You take the phone and grit your teeth.  It's contract time...(press Return to negotiate with " + randomDirector + "'s agent)");
+	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants $" + directorInitialRate + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
+	if (userInputLevelThreeOne == 1) {
+		negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
+		//if (true == negotiate(randomDirector, directorInitialRate)){
+		//kick out to level 4; }
+		//else { kick out to Plan B
+		console.log("if you're reading this it means the negotiate function worked");
+	}
+	else {
+		console.log("you chose not to negotiate with " + randomDirector + "'s rate of $" + directorInitialRate + " to make your movie.  Looks like you and " + randomDirector + " have a deal!  Head home to shower before you meet the writer whose script you chose this morning...");
+		//console.log("you did not agree to " + randomDirector + "'s initial rate of $" + directorInitialRate + " to make your movie.");
+	}
+}
+
+function playGame() {
+	//this is the master game function
+	let userSelectedGenre = levelOne();
+	let chosenDirector = levelTwo(); 
+	console.log(chosenDirector);
+	levelThree(chosenDirector);
+	console.log("Whoa, you've somehow passed out of the Level Three function, and so far your game works!");
+}
+
+//function start(){
+	
+	let userInputStart = prompt("Welcome to Hitting the Big Time!  You are a big money producer with $500,000,000 in the bank.  Are you ready to make a movie? Y/N");
+	if (userInputStart === "Y") {
+		playGame();
+	}
+	else {
+	alert("Goodbye!");
+	}
+//}
+
+//start();
+
+/*
+let movieGenre = ["action -- $200 million", "romance -- $35 million", "comedy -- $45 million", "suspense -- $30 million", "children's animated -- $100 million", "children's live-action -- $40 million", "musical drama -- $ 75 million", "musical comedy -- $50 million", "war -- $150 million", "young adult -- $20 million", "mystery -- $50 million", "chase -- $80 million", "heist -- $65 million", "period drama -- $70 million", "sci-fi space -- $300 million", "sci-fi time-travel -- $120 million", "sci-fi dystopian -- $125 million", "fantasy -- $112 million", "indie drama -- $7 million", "indie comedy -- $9 million"];
+console.log("movieGenre array length = " + movieGenre.length);
+
+let highActorsArray = ["Angelina Jolie", "Denzel Washington", "The Rock", "Meryll Streep"];
+
+let midActorsArray = ["Kevin Hart", "Bradley Cooper", "Emily Blunt", "Jenifer Lawrence"];
+
+let lowActorsArray = ["Terri Hatcher", "Stacey Dash", "Alicia Silverstone", "Roseanne Bar"];
+
+*/
+
+//START OF GAME HERE
+
+
+
