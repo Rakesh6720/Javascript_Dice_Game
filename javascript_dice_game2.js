@@ -72,7 +72,6 @@ function LowActor(first, last, salary) { //LowActor Object consructor
 	this.salary = salary;
 }
 
-
 let diceFour = 4;
 let diceSix = 6;
 let diceEight = 8;
@@ -112,12 +111,31 @@ function playGame() {
 	
 }
 
+function negotiate(opponent, opponentRateFirst) { //this is the negotiation function
+	let userCounterAmount = prompt("You've chosen to negotiate with " + opponent + "'s agent.  " + opponent + "'s initial offer was " + opponentRateFirst + " dollars to direct your new movie. Enter your counter offer as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
+	parseInt(userCounterAmount);
+	let userCounter = userCounterAmount * 1000000;
+	if (userCounter >= 0.75 * opponentRateFirst + opponentRateFirst) {
+		let opponentResponse = true;
+		console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
+		//what do these boolean responses trigger when passed back to the levelThree function?
+	}
+	else if (userCounter <= 0.15 * opponentRateFirst + opponentRateFirst) {
+		let opponentResponse = false;
+		findNewDirector(opponent, opponentRateFirst);
+	}
+	else {
+		let opponentCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
+		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of $" + opponentCounterOffer + " to direct your movie.  Great!  Let's get to work!");
+	}
+}
+
 function levelThree(randomDirector) {
 	let directorInitialRate = midActors[rollDie(diceFour)].salary; 
 	parseInt(directorInitialRate);
 	alert("Awesome!  " + randomDirector + " has accepted your offer and would like to meet for drinks at Per Se off Hollywood Boulevard.  You tell your assistant to hold your calls and cancel your private pilates session with your personal trainer Javi.  Press Return to head over to the restaurant!");
 	alert(randomDirector + " loves the script you've sent their people.  But before they can get into business, " + randomDirector + " says, you have to talk to their agent.  " + randomDirector + " dials his cell phone and hands it to you.  You take the phone and grit your teeth.  It's contract time...(press Return to negotiate with " + randomDirector + "'s agent)");
-	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants $" + directorInitialRate + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
+	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants " + toUSDollar(directorInitialRate) + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
 	if (userInputLevelThreeOne == 1) {
 		negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
 		//if (true == negotiate(randomDirector, directorInitialRate)){
