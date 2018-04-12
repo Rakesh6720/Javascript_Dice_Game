@@ -31,39 +31,7 @@ createObject(new topActors, new Angelina_Jolie, 25000000, 0);
 	if (students[
 	
 */
-function rollDie(dieNumber) { //MASTER ROLL DICE function
-	let rolledNumber = (Math.floor(Math.random() * dieNumber) + 1); 
-	return rolledNumber;
-}
 
-function createGenre(genre, amount, i){ //Genre consructor w/ array push
-	let newGenre = new Genre(genre, amount);
-	movieGenres.push(newGenre);
-	//console.log(movieGenres[i]);
-}
-
-function createTopActor(first, last, salary, i){ //topActor constructor w/ array push
-	let newActor = new TopActor(first, last, salary);
-	topActors.push(newActor);
-	//console.log(topActors[i]);
-}
-
-function createMidActor(first, last, salary, i){ //MidACtor constructor w/ array push
-	let newActor = new MidActor(first, last, salary);
-	midActors.push(newActor);
-}
-
-function createLowActor(first, last, salary, i){ //LowActor consructor w/ array push
-	let newActor = new LowActor(first, last, salary);
-	lowActors.push(newActor);
-}
-
-function toUSDollar(numberAmount) {//MASTER CONVERT TO US DOLLAR FUNCTION
-console.log((numberAmount).toLocaleString('en-US', {
-  style: 'currency',
-  currency: 'USD',
-})); /* $2,500.00 */
-}
 
 //LIST DIFFERENT DATA SETS HERE:
 let diceFour = 4;
@@ -79,6 +47,9 @@ let lowActors = [];
 let directorsArray = [];
 let unavailableDirectors = [];
 let availableDirectors = [];
+let startingHoneyPot = 500000000;
+let currentHoneyPot;
+let finalHoneyPot;
 
 //Call all the Actor Object Constructor push to Array functions to populate the actor lists
 topActors.push(new TopActor("Angelina", "Jolie", 25000000));
@@ -136,15 +107,42 @@ createGenre("indie drama", 7000000, 18);
 createGenre("indie comedy", 9000000, 19);
 createGenre("musical drama", 75000000, 20);
 
-console.log(movieGenres[18]);
-/*for(let i=0; i<=movieGenres.length; i++){
-console.log(movieGenres[i]);
+//LIST FUNCTIONS HERE
+
+function rollDie(dieNumber) { //MASTER ROLL DICE function
+	let rolledNumber = (Math.floor(Math.random() * dieNumber) + 1); 
+	return rolledNumber;
 }
 
-toUSDollar(movieGenres[7].budget);
-*/
+function createGenre(genre, amount, i){ //Genre consructor w/ array push
+	let newGenre = new Genre(genre, amount);
+	movieGenres.push(newGenre);
+	//console.log(movieGenres[i]);
+}
 
-//LIST FUNCTIONS HERE
+function createTopActor(first, last, salary, i){ //topActor constructor w/ array push
+	let newActor = new TopActor(first, last, salary);
+	topActors.push(newActor);
+	//console.log(topActors[i]);
+}
+
+function createMidActor(first, last, salary, i){ //MidACtor constructor w/ array push
+	let newActor = new MidActor(first, last, salary);
+	midActors.push(newActor);
+}
+
+function createLowActor(first, last, salary, i){ //LowActor consructor w/ array push
+	let newActor = new LowActor(first, last, salary);
+	lowActors.push(newActor);
+}
+
+function toUSDollar(numberAmount) {//MASTER CONVERT TO US DOLLAR FUNCTION
+console.log((numberAmount).toLocaleString('en-US', {
+  style: 'currency',
+  currency: 'USD',
+})); /* $2,500.00 */
+}
+
 function Genre(genre, budget){ // MASTER GENRE OBJECT CONSTRUCTOR FUNCTION
 	this.type = genre;
 	this.budget = budget;
@@ -167,6 +165,11 @@ function LowActor(first, last, salary) { //LowActor Object consructor
 	this.lastName = last;
 	this.salary = salary;
 }
+
+function subtractFromHoneyPot(currentHoneyPot, theTakeAway) {	
+	let newHoneyPotAmount = parseInt(currentHoneyPot) - parseInt(theTakeAway);
+	//return newHoneyPotAmount;
+}	
 
 function findNewDirector(opponent,opponentRateFirst){ //invoke this function if the user rejects all the first director's rate offers.
 	console.log("Ugh, it didn't work out with " + opponent + ".  It's okay, that's why you made a list.  Head back to your office to find a new director!");
@@ -225,24 +228,103 @@ function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the 
 			console.log("Ugh, too bad!  " + opponent + " doesn't like your new rate.  " + opponent + " is leaving the project disappointed, but on good terms with you.");
 			findNewDirector(opponent, opponentRateFirst);
 		}
-
 	}
 }
+//LEVEL ONE FUNCTIONS
+
+function rollDieLevelOne(levelOneRollOne) {
+	let genreRollOne;
+	let genreRollTwo;
+	let genreRollThree;
+	let genreRollFour;
+
+	genreRollOne = rollDie(diceTwenty);
+	genreRollTwo = rollDie(diceTwenty);
+	genreRollThree = rollDie(diceTwenty);
+	genreRollFour = rollDie(diceTwenty);
 	
-function levelOne() {
-	//STEP 1: ROLL THE DICE TO SELECT THE 4 GENRES YOU CAN CHOOSE FROM
 	
-	let genreRollOne = rollDie(diceTwenty);
-	let genreRollTwo = rollDie(diceTwenty);
-	let genreRollThree = rollDie(diceTwenty);
-	let genreRollFour = rollDie(diceTwenty);
+	levelOneRollOne.push(genreRollOne, genreRollTwo, genreRollThree, genreRollFour);
+	return levelOneRollOne;
+}
+
+function levelOneGetGenreChoices(levelOneRollOne, availableGenres) {
+	
+	let genreOne = movieGenres[levelOneRollOne[0]];
+	let genreTwo = movieGenres[levelOneRollOne[1]];
+	let genreThree = movieGenres[levelOneRollOne[2]];
+	let genreFour = movieGenres[levelOneRollOne[3]];
+	console.log(genreOne, genreTwo, genreThree, genreFour);
+	
+	availableGenres.push(genreOne, genreTwo, genreThree, genreFour);
+	console.log(availableGenres);
+}
+	
+function levelOneMakeGenreChoice (availableGenres) {	
+	console.log("1. " + availableGenres[0].type + ", cost $" + availableGenres[0].budget);
+	console.log("2. " + availableGenres[1].type + ", cost $" + availableGenres[1].budget);
+	console.log("3. " + availableGenres[2].type + ", cost $" + availableGenres[2].budget);
+	console.log("4. " + availableGenres[3].type + ", cost $" + availableGenres[3].budget);
+	
+	alert("did you get the console to print out?");
+	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
+	
+	if (userInputTwo == 1) {
+		let genreBudgetInDollars = parseInt(Number(availableGenres[0].budget));
+		alert("You've chosen the " + availableGenres[0].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+	else if (userInputTwo == 2) {
+		let genreBudgetInDollars = parseInt(availableGenres[1].budget);
+		alert("You've chosen the " + availableGenres[1].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+	}
+	else if (userInputTwo == 3) {
+		let genreBudgetInDollars = parseInt(availableGenres[2].budget);
+		alert("You've chosen the " + availableGenres[2].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+	else {
+		let genreBudgetInDollars = parseInt(availableGenres[3].budget);
+		alert("You've chosen the " + availableGenres[3].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+}
+//LEVEL ONE FUNCTIONS
+
+//LEVEL FUNCTIONS
+function levelOne_ActOne() {
+	let levelOneRollOne = [];
+	let genreRollOne;
+	let genreRollTwo;
+	let genreRollThree;
+	let genreRollFour;
+
+	genreRollOne = rollDie(diceTwenty);
+	genreRollTwo = rollDie(diceTwenty);
+	genreRollThree = rollDie(diceTwenty);
+	genreRollFour = rollDie(diceTwenty);
+	
+	
+	let result = levelOneRollOne.push(genreRollOne, genreRollTwo, genreRollThree, genreRollFour);
+	return result;
+//STEP 1: ROLL THE DICE TO SELECT THE 4 GENRES YOU CAN CHOOSE FROM
+}
+	
+	levelOneRollOne_two = rollDieLevelOne(levelOneRollOne_one);
+	console.log(levelOneRollOne_two);
 	//STEP 2: ASSOCIATE THE ROLLED NUMBER W/ A GENRE FROM THE GENRE Array
-	//console.log(movieGenres[genreRollOne].);
-	let genreOne = movieGenres[genreRollOne];
-	let genreTwo = movieGenres[genreRollTwo];
-	let genreThree = movieGenres[genreRollThree];
-	let genreFour = movieGenres[genreRollFour];
+	levelOneGetGenreChoices(levelOneRollOne_two, availableGenres); 
+	/*
+
 	
+	//console.log(movieGenres[genreRollOne].);
+	levelOneMakeGenreChoice(availableGenres);
+	
+/*	function levelOneMakeGenreChoice (genreOne, genreTwo, genreThree, genreFour) {
 	console.log("1. " + genreOne.type + ", cost $" + genreOne.budget);
 	console.log("2. " + genreTwo.type + ", cost $" + genreTwo.budget);
 	console.log("3. " + genreThree.type + ", cost $" + genreThree.budget);
@@ -250,94 +332,120 @@ function levelOne() {
 	
 	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
 	//console.log(userInputTwo);
-	return userInputTwo;
+	if (userInputTwo == 1) {
+		let genreBudgetInDollars = parseInt(genreOne.budget);
+		alert("You've chosen the " + genreOne.type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+	else if (userInputTwo == 2) {
+		let genreBudgetInDollars = parseInt(genreTwo.budget);
+		alert("You've chosen the " + genreTwo.type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+	}
+	else if (userInputTwo == 3) {
+		let genreBudgetInDollars = parseInt(genreThree.budget);
+		alert("You've chosen the " + genreThree.type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+	else {
+		let genreBudgetInDollars = parseInt(genreFour.budget);
+		alert("You've chosen the " + genreFour.type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
+		currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
+		//return currentHoneyPot;
+	}
+	}
+*/
 }
 
 function levelTwo() {
-	alert("In the following prompts please enter your top 3 choices for directors you would like to work with on your film.  Press Enter to continue...");
-	let directorOne = prompt("Enter the name of a director and hit return: ");
-	let directorTwo = prompt("Enter the name of a director and hit return: ");
-	let directorThree = prompt("Enter the name of a director and hit return: ");
-	directorsArray.push(directorOne, directorTwo, directorThree);
-	console.log(directorsArray); //Print the chosen directors as a string w/ commas
-	console.log("You bang your desk and summon your assistant through the door.  You tell him to get " + directorOne + ", " + directorTwo + ", and " + directorThree + " on the phone, ASAP!");
+alert("In the following prompts please enter your top 3 choices for directors you would like to work with on your film.  Press Enter to continue...");
+let directorOne = prompt("Enter the name of a director and hit return: ");
+let directorTwo = prompt("Enter the name of a director and hit return: ");
+let directorThree = prompt("Enter the name of a director and hit return: ");
+directorsArray.push(directorOne, directorTwo, directorThree);
+console.log(directorsArray); //Print the chosen directors as a string w/ commas
+console.log("You bang your desk and summon your assistant through the door.  You tell him to get " + directorOne + ", " + directorTwo + ", and " + directorThree + " on the phone, ASAP!");
 	
-		let levelTwoRollOne = rollDie(10);
-			if(levelTwoRollOne == 1 || levelTwoRollOne == 6 || levelTwoRollOne == 4){
-				//directorOne === false;
-				console.log(levelTwoRollOne);
-				unavailableDirectors = directorsArray.slice(0, 1);
-				console.log(unavailableDirectors);
-				availableDirectors.push(directorTwo, directorThree);
-				console.log(availableDirectors);
-				console.log("Uh-oh, " + unavailableDirectors[0] + " is unavailable until 2020.");
-				console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
-				let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
-					if (userSelectedDirector === 1) {
-						let chosenDirector = availableDirectors[0];
-						return chosenDirector;
-					}
-					else {
-						let chosenDirector = availableDirectors[1];
-						return chosenDirector;
-					}
-			} else if (levelTwoRollOne == 2 || levelTwoRollOne == 7 || levelTwoRollOne == 9) {
-				//directorTwo === false;
-				console.log(levelTwoRollOne);
-				unavailableDirectors = directorsArray.slice(1, 2); 
-				console.log(unavailableDirectors);
-				availableDirectors.push(directorOne, directorThree);
-				console.log(availableDirectors);
-				console.log("Uh-oh, " + unavailableDirectors[0] + " is in rehab for LaCroix abuse.");
-				console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
-				let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
-				if (userSelectedDirector == 1) {
-						let chosenDirector = availableDirectors[0];
-						return chosenDirector;
-					}
-					else {
-						let chosenDirector = availableDirectors[1];
-						return chosenDirector;
-					}
-			} else if (levelTwoRollOne == 3 || levelTwoRollOne == 5 || levelTwoRollOne == 9) {
-				//directorThree === false;
-				console.log(levelTwoRollOne);
-				unavailableDirectors = directorsArray.slice(2, 3);
-				console.log(unavailableDirectors);
-				availableDirectors.push(directorOne, directorTwo);
-				console.log(availableDirectors);
-				console.log("Uh-oh, " + unavailableDirectors[0] + " is unavailable because of an injury suffered during a para-skiing commercial shoot.");
-				console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
-				let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
-				if (userSelectedDirector == 1) {
-						let chosenDirector = availableDirectors[0];
-						return chosenDirector;
-					}
-					else {
-						let chosenDirector = availableDirectors[1];
-						return chosenDirector;
-					}
+let levelTwoRollOne = rollDie(10);
+	if(levelTwoRollOne == 1 || levelTwoRollOne == 6 || levelTwoRollOne == 4){
+		//directorOne === false;
+		console.log(levelTwoRollOne);
+		unavailableDirectors = directorsArray.slice(0, 1);
+		console.log(unavailableDirectors);
+		availableDirectors.push(directorTwo, directorThree);
+		console.log(availableDirectors);
+		console.log("Uh-oh, " + unavailableDirectors[0] + " is unavailable until 2020.");
+		console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
+		let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
+		if (userSelectedDirector === 1) {
+			let chosenDirector = availableDirectors[0];
+			return chosenDirector;
+		}
+		else {
+			let chosenDirector = availableDirectors[1];
+			return chosenDirector;
+		}
+	} 
+	else if (levelTwoRollOne == 2 || levelTwoRollOne == 7 || levelTwoRollOne == 9) {
+		//directorTwo === false;
+		console.log(levelTwoRollOne);
+		unavailableDirectors = directorsArray.slice(1, 2); 
+		console.log(unavailableDirectors);
+		availableDirectors.push(directorOne, directorThree);
+		console.log(availableDirectors);
+		console.log("Uh-oh, " + unavailableDirectors[0] + " is in rehab for LaCroix abuse.");
+		console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
+		let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
+		if (userSelectedDirector == 1) {
+			let chosenDirector = availableDirectors[0];
+			return chosenDirector;
+		}
+		else {
+			let chosenDirector = availableDirectors[1];
+			return chosenDirector;
+		}
+	} 
+	else if (levelTwoRollOne == 3 || levelTwoRollOne == 5 || levelTwoRollOne == 9) {
+		//directorThree === false;
+		console.log(levelTwoRollOne);
+		unavailableDirectors = directorsArray.slice(2, 3);
+		console.log(unavailableDirectors);
+		availableDirectors.push(directorOne, directorTwo);
+		console.log(availableDirectors);
+		console.log("Uh-oh, " + unavailableDirectors[0] + " is unavailable because of an injury suffered during a para-skiing commercial shoot.");
+		console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
+		let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
+			if (userSelectedDirector == 1) {
+				let chosenDirector = availableDirectors[0];
+				return chosenDirector;
 			}
-				else {
-				console.log(levelTwoRollOne);
-				availableDirectors.push(directorOne, directorTwo, directorThree);
-				console.log("Yay, all your choices for director are available!");
-				console.log("Of the directors" + directorsArray + " which director would you like to work with?");
-				let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + ", 2 for " + availableDirectors[1] + ", and 3 for " + availableDirectors[2]);
-				if (userSelectedDirector == 1) {
-						let chosenDirector = availableDirectors[0];
-						return chosenDirector;
-					}
-					else if(userSelectedDirector == 2) {
-						let chosenDirector = availableDirectors[1];
-						return chosenDirector;
-					}
-					else {
-						let chosenDirector = availableDirectors[2];
-						return chosenDirector;
-					}
-				}		
+			else {
+				let chosenDirector = availableDirectors[1];
+				return chosenDirector;
 			}
+	}
+	else {
+		console.log(levelTwoRollOne);
+		availableDirectors.push(directorOne, directorTwo, directorThree);
+		console.log("Yay, all your choices for director are available!");
+		console.log("Of the directors" + directorsArray + " which director would you like to work with?");
+		let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + ", 2 for " + availableDirectors[1] + ", and 3 for " + availableDirectors[2]);
+			if (userSelectedDirector == 1) {
+				let chosenDirector = availableDirectors[0];
+				return chosenDirector;
+			}
+			else if(userSelectedDirector == 2) {
+				let chosenDirector = availableDirectors[1];
+				return chosenDirector;
+			}
+			else {
+				let chosenDirector = availableDirectors[2];
+				return chosenDirector;
+			}
+	}		
+}
 			
 function levelThree(randomDirector) {
 	let directorInitialRate = topActors[rollDie(diceFour)].salary; 
@@ -359,24 +467,27 @@ function levelThree(randomDirector) {
 }
 
 function playGame() {
+	let levelOneRollOne_one = [];
+	
+	let availableGenres = [];
 	//this is the master game function
-	let userSelectedGenre = levelOne();
+	let userSelectedGenre = levelOne(levelOneRollOne_one, availableGenres);
+	console.log("is this working");
 	let chosenDirector = levelTwo(); 
 	console.log(chosenDirector);
 	levelThree(chosenDirector);
 	console.log("Whoa, you've somehow passed out of the Level Three function, and so far your game works!");
 }
 
-//function start(){
+
 	
-	let userInputStart = prompt("Welcome to Hitting the Big Time!  You are a big money producer with $500,000,000 in the bank.  Are you ready to make a movie? Y/N");
-	if (userInputStart === "Y") {
+let userInputStart = prompt("Welcome to Hitting the Big Time!  You are a big money producer with $500,000,000 in the bank.  Are you ready to make a movie? Y/N");
+	if (userInputStart == "Y") {
 		playGame();
 	}
 	else {
-	alert("Goodbye!");
+		alert("Goodbye!");
 	}
-//}
 
 //start();
 
