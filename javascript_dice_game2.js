@@ -5,23 +5,24 @@ let movieGenres = [];
 let topActors = [];
 let midActors = [];
 let lowActors = [];
+let userSayings = [];
 
-topActors.push(new TopActor("Angelina", "Jolie", 25000000));
-topActors.push(new TopActor("Denzel", "Washington", 22000000));
-topActors.push(new TopActor("Jennifer", "Lawrence", 19000000));
-topActors.push(new TopActor("Meryll", "Streep", 20000000));
-topActors.push(new TopActor("Duane", "Johnson", 32000000));
+topActors.push(new TopActor("Angelina", "Jolie", 25000000, 8));
+topActors.push(new TopActor("Denzel", "Washington", 22000000, 7));
+topActors.push(new TopActor("Jennifer", "Lawrence", 19000000, 5));
+topActors.push(new TopActor("Meryll", "Streep", 20000000, 10));
+topActors.push(new TopActor("Duane", "Johnson", 32000000, 3));
 
-midActors.push(new MidActor("Angela", "Basset", 13000000));
-midActors.push(new MidActor("Taylor", "Kitsch", 9000000));
-midActors.push(new MidActor("Keanu", "Reeves", 11000000));
-midActors.push(new MidActor("Nicole", "Kidman", 10000000));
-midActors.push(new MidActor("Anna", "Kendrick", 8000000));
+midActors.push(new MidActor("Angela", "Basset", 13000000, 7));
+midActors.push(new MidActor("Taylor", "Kitsch", 9000000, 4));
+midActors.push(new MidActor("Keanu", "Reeves", 11000000, 4));
+midActors.push(new MidActor("Nicole", "Kidman", 10000000, 8));
+midActors.push(new MidActor("Anna", "Kendrick", 8000000, 7));
 
-lowActors.push(new LowActor("Terri", "Hatcher", 1000000));
-lowActors.push(new LowActor("Tom", "Selleck", 4000000));
-lowActors.push(new LowActor("Jennifer", "Garner", 6000000));
-lowActors.push(new LowActor("James", "McAvoy", 3000000));
+lowActors.push(new LowActor("Terri", "Hatcher", 1000000, 2));
+lowActors.push(new LowActor("Tom", "Selleck", 4000000, 9));
+lowActors.push(new LowActor("Jennifer", "Garner", 6000000, 7));
+lowActors.push(new LowActor("James", "McAvoy", 3000000, 3));
 
 createGenre("action", 200000000, 0);
 createGenre("romance", 35000000, 1);
@@ -56,22 +57,30 @@ function createGenre(genre, amount, i){ //Genre consructor w/ array push
 	//console.log(movieGenres[i]);
 }
 
-function TopActor(first, last, salary){ //TopActor Object constructor
+function TopActor(first, last, salary, status){ //TopActor Object constructor
 	this.firstName = first;
 	this.lastName = last;
 	this.salary = salary;
+	this.shame = status; //high shame, hig status.  low shame, low status.
 }
 	
-function MidActor(first, last, salary) { //MidActor Object constructor
+function MidActor(first, last, salary, status) { //MidActor Object constructor
 	this.firstName = first;
 	this.lastName = last;
 	this.salary = salary;
+	this.shame = status;
 }
 
-function LowActor(first, last, salary) { //LowActor Object consructor
+function LowActor(first, last, salary, status) { //LowActor Object consructor
 	this.firstName = first;
 	this.lastName = last;
 	this.salary = salary;
+	this.shame = status;
+}
+
+function UserSaying(content, lewdnessFactor) {
+	this.phrase = content;
+	this.lewdness = lewdnessFactor;
 }
 
 let diceFour = 4;
@@ -113,8 +122,67 @@ let resultLevelOneActOne = [];
 	let levelOneHoneyPot = levelOneMakeGenreChoice(returnedGenreChoices);
 	let director = levelTwo();
 	let levelThreeHoneyPot = levelThree(director, levelOneHoneyPot);
-	
+	let userChosenActor = levelFour(levelThreeHoneyPot, director, returnedGenreChoices);
+	levelFive(userChosenActor, director, returnedGenreChoices, levelThreeHoneyPot);
 }
+
+function levelFive() {
+	alert("We're still working on this level!  Come back soon.");
+	console.log("You've reached the second act of Hitting the Big Time!  Click BUY to purchase the next installment.");
+}
+
+function levelFour(levelThreeHoneyPot, director, returnedGenreChoices) {
+let levelFourRollOne;
+levelFourRollOne = rollDie(diceFour);
+let levelFourActors = [];
+
+levelFourActors.push(lowActors[levelFourRollOne]);
+levelFourActors.push(midActors[levelFourRollOne]);
+levelFourActors.push(topActors[levelFourRollOne]);
+levelFourActors.push(lowActors[levelFourRollOne]);
+levelFourActors.push(midActors[levelFourRollOne]);
+levelFourActors.push(topActors[levelFourRollOne]);
+levelFourActors.push(lowActors[levelFourRollOne]);
+levelFourActors.push(midActors[levelFourRollOne]);
+levelFourActors.push(topActors[levelFourRollOne]);
+
+let levelFourActorOne;
+levelFourActorOne = levelFourActors[rollDie(diceEight)];
+alert("On the way out of the restaurant you bump into " + levelFourActorOne.firstName + " " + levelFourActorOne.lastName + " getting out of their UberX...");
+alert("You roll your eight-sided di to determine your action...");
+let levelFourRollTwo;
+levelFourRollTwo = rollDie(diceEight);
+alert("You decide to say...");
+
+userSayings.push(new UserSaying("Hey, what's shaking, baby?  Do you want to talk about my new flick over dranks?", 3));
+userSayings.push(new UserSaying("Yo yo yo yo, honey dew, I was just thinking about you.  Can I holla at you for a min?", 4));
+userSayings.push(new UserSaying("Maaaan, I done loved your last flick.  Let's lock it up for this " + director + " project I got lined up.", 2));
+userSayings.push(new UserSaying("My man, my man, my man, my man, I was just talking to " + director + "." + "Come sit down and lets talk about working together.", 2));
+userSayings.push(new UserSaying("Hey, what's shaking, baby?  Do you want to talk about my new flick over dranks?", 5));
+userSayings.push(new UserSaying("Yo yo yo yo, honey dew, I was just thinking about you.  Can I holla at you for a min?", 4));
+userSayings.push(new UserSaying("Maaaan, I done loved your last flick.  Let's lock it up for this " + director + " project I got lined up.", 1));
+userSayings.push(new UserSaying("My man, my man, my man, my man, I was just talking to " + director + "." + "Come sit down and lets talk about working together.", 2));
+
+alert(userSayings[levelFourRollTwo].phrase);
+	if (userSayings[levelFourRollTwo].lewdness >= 3 && levelFourActorOne.shame <= 7 || levelFourActorOne.shame <= 6) {
+		alert(levelFourActorOne.firstName + " " + levelFourActorOne.lastName + " stops dead in their tracks and locks your eyes with their stare...");
+		alert(levelFourActorOne.firstName + " " + levelFourActorOne.lastName + " nods toward their head of security, gives him their belongings, and...");
+		alert("...puts their arm around yours.  " + levelFourActorOne.firstName + " " + levelFourActorOne.lastName + " says, 'I have been waiting a long time to work with you, and I am definitely interested in what you have to say.  Lets talk!");
+		alert("Success!  You might have just landed yourself a lead actor for your next project.  Lets just hope " + levelFourActorOne.firstName + " " + levelFourActorOne.lastName + " and " + director + " can get along.  Off to Level 5!");
+		return levelFourActorOne;
+	}
+	else {
+		alert("Yikes, looked like you scared " + levelFourActorOne.firstName + " away with your shamelessness...");
+		alert("That's not how movies are made in this town.  You should know that by now, but since you don't...");
+		alert("Head back to Level 1 to figure it out.");
+		levelThreeHoneyPot = currentHoneyPot;
+		currentHoneyPot = 0;
+		startingHoneyPot = 500000000;
+		levelOneMakeGenreChoice(returnedGenreChoices);
+	}
+}
+	
+
 
 function levelThree(randomDirector, currentHoneyPot) {
 	let directorInitialR;
@@ -145,7 +213,7 @@ function levelThree(randomDirector, currentHoneyPot) {
 	}
 	else {
 		alert("you chose not to negotiate with " + randomDirector + "'s rate of " + toUSDollar(directorInitialRate) + " to make your movie.  Looks like you and " + randomDirector + " have a deal!  Head home to shower before you meet the writer whose script you chose this morning...");
-		let levelThreeHoneyPotReturn = currentHoneyPot - ParseInt(directorInitialRate);
+		let levelThreeHoneyPotReturn = currentHoneyPot - directorInitialRate;
 		console.log("Your new Honeypot total is " + toUSDollar(levelThreeHoneyPotReturn));
 		return levelThreeHoneyPotReturn;
 		//console.log("you did not agree to " + randomDirector + "'s initial rate of $" + directorInitialRate + " to make your movie.");
