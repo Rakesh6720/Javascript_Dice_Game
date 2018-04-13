@@ -15,7 +15,9 @@ topActors.push(new TopActor("Duane", "Johnson", 32000000));
 midActors.push(new MidActor("Angela", "Basset", 13000000));
 midActors.push(new MidActor("Taylor", "Kitsch", 9000000));
 midActors.push(new MidActor("Keanu", "Reeves", 11000000));
-midActors.push(new MidActor("Kidman", "Nicole", 10000000));
+midActors.push(new MidActor("Nicole", "Kidman", 10000000));
+midActors.push(new MidActor("Anna", "Kendrick", 8000000));
+
 lowActors.push(new LowActor("Terri", "Hatcher", 1000000));
 lowActors.push(new LowActor("Tom", "Selleck", 4000000));
 lowActors.push(new LowActor("Jennifer", "Garner", 6000000));
@@ -98,11 +100,14 @@ let userInputStart = prompt("Welcome to Hitting the Big Time!  You are a big mon
 		alert("Goodbye!");
 	}
 
+
+
+
 function playGame() {
-	let resultLevelOneActOne = [];
-	let returnedGenreChoices = [];
+let resultLevelOneActOne = [];
 	resultLevelOneActOne = levelOne_ActOne();
-	//console.log(resultLevelOneActOne);
+	console.log(resultLevelOneActOne);
+	let returnedGenreChoices = [];	
 	returnedGenreChoices = levelOneGetGenreChoices(resultLevelOneActOne);
 	console.log(returnedGenreChoices);
 	let levelOneHoneyPot = levelOneMakeGenreChoice(returnedGenreChoices);
@@ -112,15 +117,24 @@ function playGame() {
 }
 
 function levelThree(randomDirector, currentHoneyPot) {
-	let directorInitialR = midActors[rollDie(diceFour)].salary; 
-	let directorInitialRate = parseInt(directorInitialR);
+	let directorInitialR;
+	directorInitialR = midActors[rollDie(diceFour)].salary; 
+	let directorInitialRate;
+	directorInitialRate	= parseInt(directorInitialR);
 	alert("Awesome!  " + randomDirector + " has accepted your offer and would like to meet for drinks at Per Se off Hollywood Boulevard.  You tell your assistant to hold your calls and cancel your private pilates session with your personal trainer Javi.  Press Return to head over to the restaurant!");
 	alert(randomDirector + " loves the script you've sent their people.  But before they can get into business, " + randomDirector + " says, you have to talk to their agent.  " + randomDirector + " dials his cell phone and hands it to you.  You take the phone and grit your teeth.  It's contract time...(press Return to negotiate with " + randomDirector + "'s agent)");
-	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants " + toUSDollar(directorInitialRate) + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
+	let userInputLevelThreeOne;
+		userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants " + toUSDollar(directorInitialRate) + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
 	if (userInputLevelThreeOne == 1) {
-		let directorAcceptedRate = negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
-		
-		let levelThreeHoneyPotReturn = currentHoneyPot - parseInt(directorAcceptedRate);
+		let directorAcceptedRate;
+		directorAcceptedRate = negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
+		console.log(directorAcceptedRate);
+		let directorAcceptedRate2;
+		directorAcceptedRate2 = parseInt(directorAcceptedRate);
+		let levelThreeHoneyPotReturn;
+		Number(currentHoneyPot);
+			levelThreeHoneyPotReturn = currentHoneyPot - directorAcceptedRate2;
+			parseInt(levelThreeHoneyPotReturn);
 			if (levelThreeHoneyPotReturn >= 0) {
 			console.log("Your new Honeypot amount is " + toUSDollar(levelThreeHoneyPotReturn));
 			return levelThreeHoneyPotReturn;
@@ -139,25 +153,30 @@ function levelThree(randomDirector, currentHoneyPot) {
 }
 
 function negotiate(opponent, opponentRateFirst) { //this is the negotiation function
-	let userCounterAmount = prompt("You've chosen to negotiate with " + opponent + "'s agent.  " + opponent + "'s initial offer was " + toUSDollar(opponentRateFirst) + " dollars to direct your new movie. Enter your counter offer as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
+	let acceptedCounterOffer;
+	let userCounterAmount;
+		userCounterAmount = prompt("You've chosen to negotiate with " + opponent + "'s agent.  " + opponent + "'s initial offer was " + toUSDollar(opponentRateFirst) + " dollars to direct your new movie. Enter your counter offer as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
 	parseInt(userCounterAmount);
 	let userCounter = userCounterAmount * 1000000;
 	if (userCounter >= 0.25 * opponentRateFirst + opponentRateFirst) {
-		let opponentResponse = true;
+		//let opponentResponse = true;
 		console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
-		
+		userCounter = acceptedCounterOffer;
+		return acceptedCounterOffer;
 		//what do these boolean responses trigger when passed back to the levelThree function?
 	}
 	else if (userCounter <= opponentRateFirst - (0.75 * opponentRateFirst)) {
-		let opponentResponse = false;
+		//let opponentResponse = false;
 		findNewDirector(opponent, opponentRateFirst);
 	}
 	else {
-		let acceptedCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
+		let acceptedCounterOffer;
+		acceptedCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
 		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of " + toUSDollar(acceptedCounterOffer) + " to direct your movie.  Great!  Let's get to work!");
 		return acceptedCounterOffer;
 	}
-	return userCounter;
+	
+	return acceptedCounterOffer;
 }
 
 function findNewDirector(opponent,opponentRateFirst){ //invoke this function if the user rejects all the first director's rate offers.
@@ -230,7 +249,7 @@ let levelTwoRollOne = rollDie(diceTen);
 		console.log("Uh-oh, " + unavailableDirectors[0] + " is unavailable until 2020.");
 		console.log("Your two options are " + availableDirectors[0] + " and " + availableDirectors[1]);
 		let userSelectedDirector = prompt("Press 1 for " + availableDirectors[0] + " and 2 for " + availableDirectors[1]);
-			if (userSelectedDirector === 1) {
+			if (userSelectedDirector == 1) {
 				let chosenDirector = availableDirectors[0];
 				return chosenDirector;
 			}
@@ -314,7 +333,7 @@ function levelOneMakeGenreChoice (availableGenres) {
 	console.log("3. " + availableGenres[2].type + ", cost " + toUSDollar(availableGenres[2].budget));
 	console.log("4. " + availableGenres[3].type + ", cost " + toUSDollar(availableGenres[3].budget));
 	
-	alert("did you get the console to print out?");
+	//alert("did you get the console to print out?");
 	let userInputTwo = prompt("Your assistant brings to your desk four piles of scripts sorted by the genres listed below.  Each genre is followed by the size of the budget required to execute it.  Remember, the more a genre costs to produce the more difficult it becomes to return a profit.  However, with great risk there is great glory.  Please enter the number of the genre you'd like to produce: "); 
 	
 	if (userInputTwo == 1) {
@@ -322,21 +341,27 @@ function levelOneMakeGenreChoice (availableGenres) {
 		alert("You've chosen the " + availableGenres[0].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
 		//console.log(toUSDollar(genreBudgetInDollars));
 		console.log("Here's what's left in your Honeypot: " + toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars));
-		let result = toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars);
-		return result;//return currentHoneyPot;
+		let result;
+		currentHoneyPot = startingHoneyPot - genreBudgetInDollars;
+		result = currentHoneyPot;
+		return result;
 	}
 	else if (userInputTwo == 2) {
 		let genreBudgetInDollars = parseInt(availableGenres[1].budget);
 		alert("You've chosen the " + availableGenres[1].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
 		console.log("Here's what's left in your Honeypot: " + toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars));
-		let result = toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars);
+		let result;
+		currentHoneyPot = startingHoneyPot - genreBudgetInDollars;
+		result = currentHoneyPot;
 		return result;//return currentHoneyPot;//currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
 	}
 	else if (userInputTwo == 3) {
 		let genreBudgetInDollars = parseInt(availableGenres[2].budget);
 		alert("You've chosen the " + availableGenres[2].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
 		console.log("Here's what's left in your Honeypot: " + toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars));
-		let result = toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars);
+		let result;
+		currentHoneyPot = startingHoneyPot - genreBudgetInDollars;
+		result = currentHoneyPot;
 		return result;//return currentHoneyPot;//currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
 		//return currentHoneyPot;
 	}
@@ -344,7 +369,9 @@ function levelOneMakeGenreChoice (availableGenres) {
 		let genreBudgetInDollars = parseInt(availableGenres[3].budget);
 		alert("You've chosen the " + availableGenres[3].type + " genre.  That's going to cost you " + toUSDollar(genreBudgetInDollars) + ".  Press Return to continue...");
 		console.log("Here's what's left in your Honeypot: " + toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars));
-		let result = toUSDollar(currentHoneyPot = startingHoneyPot - genreBudgetInDollars);
+		let result;
+		currentHoneyPot = startingHoneyPot - genreBudgetInDollars;
+		result = currentHoneyPot;
 		return result;//return currentHoneyPot;//currentHoneyPot = subtractFromHoneyPot(startingHoneyPot, genreBudgetInDollars);
 		//return currentHoneyPot;
 	}
