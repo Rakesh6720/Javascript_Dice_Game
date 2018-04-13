@@ -107,45 +107,100 @@ function playGame() {
 	console.log(returnedGenreChoices);
 	let levelOneHoneyPot = levelOneMakeGenreChoice(returnedGenreChoices);
 	let director = levelTwo();
-	levelThree(director);
+	let levelThreeHoneyPot = levelThree(director, levelOneHoneyPot);
 	
 }
 
-function negotiate(opponent, opponentRateFirst) { //this is the negotiation function
-	let userCounterAmount = prompt("You've chosen to negotiate with " + opponent + "'s agent.  " + opponent + "'s initial offer was " + opponentRateFirst + " dollars to direct your new movie. Enter your counter offer as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
-	parseInt(userCounterAmount);
-	let userCounter = userCounterAmount * 1000000;
-	if (userCounter >= 0.75 * opponentRateFirst + opponentRateFirst) {
-		let opponentResponse = true;
-		console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
-		//what do these boolean responses trigger when passed back to the levelThree function?
-	}
-	else if (userCounter <= 0.15 * opponentRateFirst + opponentRateFirst) {
-		let opponentResponse = false;
-		findNewDirector(opponent, opponentRateFirst);
-	}
-	else {
-		let opponentCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
-		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of $" + opponentCounterOffer + " to direct your movie.  Great!  Let's get to work!");
-	}
-}
-
-function levelThree(randomDirector) {
-	let directorInitialRate = midActors[rollDie(diceFour)].salary; 
-	parseInt(directorInitialRate);
+function levelThree(randomDirector, currentHoneyPot) {
+	let directorInitialR = midActors[rollDie(diceFour)].salary; 
+	let directorInitialRate = parseInt(directorInitialR);
 	alert("Awesome!  " + randomDirector + " has accepted your offer and would like to meet for drinks at Per Se off Hollywood Boulevard.  You tell your assistant to hold your calls and cancel your private pilates session with your personal trainer Javi.  Press Return to head over to the restaurant!");
 	alert(randomDirector + " loves the script you've sent their people.  But before they can get into business, " + randomDirector + " says, you have to talk to their agent.  " + randomDirector + " dials his cell phone and hands it to you.  You take the phone and grit your teeth.  It's contract time...(press Return to negotiate with " + randomDirector + "'s agent)");
 	let userInputLevelThreeOne = prompt(randomDirector + "'s agent tells you her client wants " + toUSDollar(directorInitialRate) + " to shoot the picture.  Do you want to negotiate this rate?  Press 1 for 'YES' or 2 for 'NO'.");
 	if (userInputLevelThreeOne == 1) {
-		negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
-		//if (true == negotiate(randomDirector, directorInitialRate)){
-		//kick out to level 4; }
-		//else { kick out to Plan B
-		console.log("if you're reading this it means the negotiate function worked");
+		let directorAcceptedRate = negotiate(randomDirector, directorInitialRate);//what happens when you return this true or false?  If it's true you move on to level 4, otherwise you're kicked out to another scenario.  WHAT IS THAT SCENARIO?  Call it Plan B and board it out.
+		
+		let levelThreeHoneyPotReturn = currentHoneyPot - parseInt(directorAcceptedRate);
+			if (levelThreeHoneyPotReturn >= 0) {
+			console.log("Your new Honeypot amount is " + toUSDollar(levelThreeHoneyPotReturn));
+			return levelThreeHoneyPotReturn;
+			}
+			else {
+			alert("You ran out of money!  Hit the rehab spa in Sedona and try again in 6 months!");
+			}
 	}
 	else {
-		console.log("you chose not to negotiate with " + randomDirector + "'s rate of $" + directorInitialRate + " to make your movie.  Looks like you and " + randomDirector + " have a deal!  Head home to shower before you meet the writer whose script you chose this morning...");
+		alert("you chose not to negotiate with " + randomDirector + "'s rate of " + toUSDollar(directorInitialRate) + " to make your movie.  Looks like you and " + randomDirector + " have a deal!  Head home to shower before you meet the writer whose script you chose this morning...");
+		let levelThreeHoneyPotReturn = currentHoneyPot - ParseInt(directorInitialRate);
+		console.log("Your new Honeypot total is " + toUSDollar(levelThreeHoneyPotReturn));
+		return levelThreeHoneyPotReturn;
 		//console.log("you did not agree to " + randomDirector + "'s initial rate of $" + directorInitialRate + " to make your movie.");
+	}
+}
+
+function negotiate(opponent, opponentRateFirst) { //this is the negotiation function
+	let userCounterAmount = prompt("You've chosen to negotiate with " + opponent + "'s agent.  " + opponent + "'s initial offer was " + toUSDollar(opponentRateFirst) + " dollars to direct your new movie. Enter your counter offer as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
+	parseInt(userCounterAmount);
+	let userCounter = userCounterAmount * 1000000;
+	if (userCounter >= 0.25 * opponentRateFirst + opponentRateFirst) {
+		let opponentResponse = true;
+		console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
+		
+		//what do these boolean responses trigger when passed back to the levelThree function?
+	}
+	else if (userCounter <= opponentRateFirst - (0.75 * opponentRateFirst)) {
+		let opponentResponse = false;
+		findNewDirector(opponent, opponentRateFirst);
+	}
+	else {
+		let acceptedCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
+		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of " + toUSDollar(acceptedCounterOffer) + " to direct your movie.  Great!  Let's get to work!");
+		return acceptedCounterOffer;
+	}
+	return userCounter;
+}
+
+function findNewDirector(opponent,opponentRateFirst){ //invoke this function if the user rejects all the first director's rate offers.
+	console.log("Ugh, it didn't work out with " + opponent + ".  It's okay, that's why you made a list.  Head back to your office to find a new director!");
+	levelTwo();
+}
+	
+function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the counter negotiation function
+	let opponentCounterOff = ((rollDie(diceSix) / 10) * opponentRateFirst) + opponentRateFirst;
+	let opponentCounterOffer = parseInt(opponentCounterOff);
+	alert(opponent + " has rejected your offer.  Press Return to see " + opponent + "'s agent's counter offer...");
+	let userInputFirst = prompt(opponent + " has countered with a rate of " + toUSDollar(opponentCounterOffer) + " to direct your film.  Will you accept?  Press 1 for 'YES' and 2 for 'NO'...");
+	if (userInputFirst == 1){
+		return opponentCounterOffer;
+	}
+	else {
+		let userInputSecond = prompt("You've rejected  " + opponent + "'s agent's counter offer of " + toUSDollar(opponentRateFirst) + " dollars to direct your new movie. Do you wish to make " + opponent + " another offer? Press 1 for 'YES' and 2 for 'NO'..." );
+		if (userInputSecond == 1) {
+			let userCounterCounter = prompt("Enter your counter offer to " + opponent + " as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
+			parseInt(userCounterCounter) * 1000000;
+				if (userCounterCounter > opponentRateFirst && rollDie(diceTwelve) % 2 == 0) {
+					//launch continue with director move to level 4 function
+					//console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back-rub from your masseuse Tito.");
+					return userCounterCounter;
+				}
+				else if (userCounterCounter > opponentRateFirst && rollDie(diceTwelve) % 2 !== 0) {
+					console.log(opponent + "rejected your offer, you cheapskate!  " + opponent + " quits your movie and burns your reputation at their weekly poker game.");
+					findNewDirector(opponent, opponentRateFirst);
+				}
+				else if (userCounterCounter < opponentRateFirst && rollDie(diceTen) == 6) {
+					console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
+					return userCounterCounter;
+					//launch continue with director move to level 4 function
+				}
+				else {
+					findNewDirector(opponent, opponentRateFirst);
+				}
+		}
+		else {
+			//what happens if you accept the director's new rate?  you should subtract money from your honeypot and move on to level four
+			console.log("Ugh, too bad!  " + opponent + " doesn't like your new rate.  " + opponent + " is leaving the project disappointed, but on good terms with you.");
+			findNewDirector(opponent, opponentRateFirst);
+		}
 	}
 }
 
