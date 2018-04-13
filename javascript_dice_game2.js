@@ -162,6 +162,7 @@ userSayings.push(new UserSaying("Hey, what's shaking, baby?  Do you want to talk
 userSayings.push(new UserSaying("Yo yo yo yo, honey dew, I was just thinking about you.  Can I holla at you for a min?", 4));
 userSayings.push(new UserSaying("Maaaan, I done loved your last flick.  Let's lock it up for this " + director + " project I got lined up.", 1));
 userSayings.push(new UserSaying("My man, my man, my man, my man, I was just talking to " + director + "." + "Come sit down and lets talk about working together.", 2));
+userSayings.push(new UserSaying("My man, my man, my man, my man, I was just talking to " + director + "." + "Come sit down and lets talk about working together.", 2));
 
 alert(userSayings[levelFourRollTwo].phrase);
 	if (userSayings[levelFourRollTwo].lewdness >= 3 && levelFourActorOne.shame <= 7 || levelFourActorOne.shame <= 6) {
@@ -238,8 +239,9 @@ function negotiate(opponent, opponentRateFirst) { //this is the negotiation func
 		findNewDirector(opponent, opponentRateFirst);
 	}
 	else {
-		let acceptedCounterOffer;
-		acceptedCounterOffer = makeCounter(opponent, opponentRateFirst, userCounter);
+		let acceptedCounterOff;
+		acceptedCounterOff = makeCounter(opponent, opponentRateFirst, userCounter);
+		acceptedCounterOffer = parseInt(acceptedCounterOff);
 		console.log("If you're reading this then you accepted " + opponent + "'s first counter offer of " + toUSDollar(acceptedCounterOffer) + " to direct your movie.  Great!  Let's get to work!");
 		return acceptedCounterOffer;
 	}
@@ -253,8 +255,10 @@ function findNewDirector(opponent,opponentRateFirst){ //invoke this function if 
 }
 	
 function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the counter negotiation function
-	let opponentCounterOff = ((rollDie(diceSix) / 10) * opponentRateFirst) + opponentRateFirst;
-	let opponentCounterOffer = parseInt(opponentCounterOff);
+	let opponentCounterOff;
+		opponentCounterOff = ((rollDie(diceSix) / 10) * opponentRateFirst) + opponentRateFirst;
+	let opponentCounterOffer;
+		opponentCounterOffer = parseInt(opponentCounterOff);
 	alert(opponent + " has rejected your offer.  Press Return to see " + opponent + "'s agent's counter offer...");
 	let userInputFirst = prompt(opponent + " has countered with a rate of " + toUSDollar(opponentCounterOffer) + " to direct your film.  Will you accept?  Press 1 for 'YES' and 2 for 'NO'...");
 	if (userInputFirst == 1){
@@ -264,19 +268,20 @@ function makeCounter(opponent, opponentRateFirst, userCounter) { // this is the 
 		let userInputSecond = prompt("You've rejected  " + opponent + "'s agent's counter offer of " + toUSDollar(opponentRateFirst) + " dollars to direct your new movie. Do you wish to make " + opponent + " another offer? Press 1 for 'YES' and 2 for 'NO'..." );
 		if (userInputSecond == 1) {
 			let userCounterCounter = prompt("Enter your counter offer to " + opponent + " as a factor of 1 million and press Return.  (For example, to offer " + opponent + " $20 million enter the number 20 and press Return.  To offer " + opponent + " $12 million, enter 12 and pess return.  For $100 million enter 100 and press Return, etc."); 
-			parseInt(userCounterCounter) * 1000000;
-				if (userCounterCounter > opponentRateFirst && rollDie(diceTwelve) % 2 == 0) {
+			let userCounterCounterParsed;
+				userCounterCounterParsed = parseInt(userCounterCounter) * 1000000;
+				if (userCounterCounterParsed > opponentRateFirst && rollDie(diceTwelve) % 2 == 0) {
 					//launch continue with director move to level 4 function
 					//console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back-rub from your masseuse Tito.");
-					return userCounterCounter;
+					return userCounterCounterParsed;
 				}
-				else if (userCounterCounter > opponentRateFirst && rollDie(diceTwelve) % 2 !== 0) {
+				else if (userCounterCounterParsed > opponentRateFirst && rollDie(diceTwelve) % 2 !== 0) {
 					console.log(opponent + "rejected your offer, you cheapskate!  " + opponent + " quits your movie and burns your reputation at their weekly poker game.");
 					findNewDirector(opponent, opponentRateFirst);
 				}
-				else if (userCounterCounter < opponentRateFirst && rollDie(diceTen) == 6) {
+				else if (userCounterCounterParsed < opponentRateFirst && rollDie(diceTen) == 6) {
 					console.log("Nice!  " + opponent + " has accepted your offer!  Head back to your office to check your messages and get a back massage from your masseuse Tito.");
-					return userCounterCounter;
+					return userCounterCounterParsed;
 					//launch continue with director move to level 4 function
 				}
 				else {
